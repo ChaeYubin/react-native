@@ -1,25 +1,31 @@
 import React from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
+import TodoItem from "./TodoItem";
 
 function TodoList({ todos }) {
   return (
     <FlatList
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
       style={styles.list}
       data={todos}
       renderItem={({ item }) => (
         <View>
-          <Text>{item.text}</Text>
+          <TodoItem id={item.id} text={item.text} done={item.done} />
         </View>
       )}
     >
       keyExtractor={(item) => item.id.toString()}
-    </FlatList> // keyExtractor: 각항목의 고유 값을 추출해주는 함수(Props)
+    </FlatList> // keyExtractor: 각 항목의 고유 값을 추출해주는 함수(Props)
   );
 }
 
 const styles = StyleSheet.create({
   list: {
     flex: 1,
+  },
+  separator: {
+    backgroundColor: "#e0e0e0",
+    height: 1,
   },
 });
 
