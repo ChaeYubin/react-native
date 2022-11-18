@@ -3,10 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // 키 값은 상수로 선언, 추후에 쉽게 바꿀 수 있도록
 const key = "todos";
 
-const todoStorage = {
+const todosStorage = {
   async get() {
     try {
-      const rawTodos = AsyncStorage.getItem(key);
+      const rawTodos = await AsyncStorage.getItem(key);
 
       if (!rawTodos) {
         // 저장된 데이터가 없으면 사용하지 않음
@@ -19,7 +19,7 @@ const todoStorage = {
       throw new Error("Failed to load todos");
     }
   },
-  async set() {
+  async set(data) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(data));
     } catch (e) {
@@ -28,4 +28,4 @@ const todoStorage = {
   },
 };
 
-export default todoStorage;
+export default todosStorage;
