@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,6 +11,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import TodoList from "./components/TodoList";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const today = new Date();
@@ -20,6 +21,34 @@ export default function App() {
     { id: 2, text: "리액트 네이티브 기초 공부", done: false },
     { id: 3, text: "투두리스트 만들어보기", done: false },
   ]);
+
+  // AsyncStorage에서 불러오기
+  useEffect(() => {
+    async function load() {
+      try {
+        const rawTodos = await AsyncStorage.getItem("todos");
+        const savedTodos = JSON.parse(rawTodos);
+        setTodos(savedTodos);
+      } catch (e) {
+        console.log("Failed to laod todos");
+      }
+    }
+    load();
+  }, []); // useEffect의 두 번째 배열이 비어있으면 -> 컴포넌트가 마운트될 때 딱 한 번만 함수가 호출됨
+
+  // AsyncStorage에 저장하기
+  // 1번째 인자: 주시하고 싶은 값이 바뀌었을 때 호출하고 싶은 함수
+  // 2번째 인자: 주시하고 싶은 값을 배열 안에 넣는다.
+  useEffect(() => {
+    async function save() {
+      try {
+        await AsyncStorage.setItem("todos", JSON.stringify(todos));
+      } catch (e) {
+        console.log("Failed to save todos");
+      }
+    }
+    save();
+  }, [todos]);
 
   const onInsert = (text) => {
     // 새로 등록할 항목의 id 구하기
