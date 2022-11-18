@@ -34,6 +34,10 @@
 				<true/>
 			</dict>
 		</dict>
+		<key>UIAppFonts</key>
+		<array>
+			<string>MaterialIcons.ttf</string>
+		</array>
 	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
