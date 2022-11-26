@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "DayLog",
+    "slug": "DayLog",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
