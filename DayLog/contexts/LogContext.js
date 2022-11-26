@@ -14,7 +14,26 @@ export function LogContextProvider({ children }) {
     };
     setLogs([log, ...logs]);
   };
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState([
+    {
+      id: uuidv4(),
+      title: "Log 03",
+      body: "Log 03",
+      date: new Date().toISOString(),
+    },
+    {
+      id: uuidv4(),
+      title: "Log 02",
+      body: "Log 02",
+      date: new Date(Date.now() - 1000 * 60 * 3).toISOString(),
+    },
+    {
+      id: uuidv4(),
+      title: "Log 01",
+      body: "Log 01",
+      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+    },
+  ]);
   return (
     <LogContext.Provider value={{ logs, onCreate }}>
       {children}
